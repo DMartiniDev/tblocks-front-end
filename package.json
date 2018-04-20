@@ -1,0 +1,18 @@
+{
+  "name": "teltris-frontend",
+  "version": "0.1.0",
+  "description": "frontend for 6-day Codeworks solo project 'Teltris'",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-scripts": "1.1.4",
+    "socket.io-client": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
