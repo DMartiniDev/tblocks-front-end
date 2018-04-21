@@ -8,19 +8,19 @@ class App extends Component {
 
   handleKeyPress = (event) => {
     if(event.key === 'ArrowLeft'){
-      console.log('Going left...')
+      this.props.requestMoveLeft();
     }
     if(event.key === 'ArrowRight'){
-      console.log('Going right...')
+      this.props.requestMoveRight();
     }
     if(event.key === 'ArrowUp'){
-      console.log('Going up...')
+      this.props.requestRotate();
     }
     if(event.key === 'ArrowDown'){
-      console.log('Going down...')
+      this.props.requestMoveDown();
     }
     if(event.key === ' '){
-      console.log('Spacebar')
+      this.props.requestDropDown();
     }
   }
 
@@ -67,6 +67,36 @@ const mapDispatchToProps = (dispatch) => ({
   startGame: () => {
     dispatch({
       type: 'START_GAME'
+    })
+  },
+
+  requestMoveLeft: () => {
+    dispatch({
+      type: 'MOVE_LEFT'
+    })
+  },
+
+  requestMoveRight: () => {
+    dispatch({
+      type: 'MOVE_RIGHT'
+    })
+  },
+
+  requestMoveDown: () => {
+    dispatch({
+      type: 'MOVE_DOWN'
+    })
+  },
+
+  requestDropDown: () => {
+    dispatch({
+      type: 'DROP_DOWN'
+    })
+  },
+
+  requestRotate: () => {
+    dispatch({
+      type: 'ROTATE'
     })
   }
 });
