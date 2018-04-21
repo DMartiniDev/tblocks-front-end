@@ -39,7 +39,6 @@ class Board extends Component {
 
     // Initialisation of the game
     this.playerReset();
-    // this.updateGameStatus();
     // this.updateScore();
     this.update();
   }
@@ -209,10 +208,8 @@ class Board extends Component {
 
     if (this.collide(this.arena, this.player)) {
       // GAME OVER LOGIC
-      this.arena.forEach((row) => row.fill(0));
-      this.player.score = 0;
       this.props.finishGame(this.props.player);
-      //this.updateGameStatus();
+      this.player.score = 0;
       //this.updateScore();
     }
   }
