@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Board from './containers/board';
 import './socketCommunication'
+import { connect } from 'react-redux';
 
 class App extends Component {
 
@@ -23,14 +24,51 @@ class App extends Component {
     }
   }
 
+  player01 = {
+    name: 'Player 01'
+  };
+
+  player02 = {
+    name: 'Player 02'
+  };
+
+  showGameResults() {
+    if (this.props.gameStatus === 'Game Over') {
+      return (
+        <p style={{color: 'white'}}>Apparently, {this.props.loser} has lost the game</p>
+      )
+    } else {
+      return;
+    }
+  }
+
   render() {
     return (
       <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-        <Board />
-        <Board />
+        <Board player={this.player01} />
+        <Board player={this.player02} />
+        <div>
+          <button onClick={this.props.startGame}>START GAME</button>
+        </div>
+        {this.showGameResults()}
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    gameStatus: state.gameStatus,
+    loser: state.loser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  startGame: () => {
+    dispatch({
+      type: 'START_GAME'
+    })
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

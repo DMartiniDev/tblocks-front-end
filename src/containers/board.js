@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './board.css';
 import { socketHandler, socket } from '../socketCommunication';
-import canvasLogic from './canvasLogic'
+import canvasLogic from './canvasLogic';
+import { connect } from 'react-redux';
 
 class Board extends Component {
   componentDidMount() {
@@ -30,11 +31,10 @@ class Board extends Component {
     },
     matrix: null,
     score: 0,
-    gameStatus: 'Playing'
   }
 
   this.dropCounter = 0;
-  this.dropInterval = 200;          // Amount of miliseconds before a piece drops
+  this.dropInterval = 80;          // Amount of miliseconds before a piece drops
   this.lastTime = 0;
 
     // Initialisation of the game
@@ -211,7 +211,7 @@ class Board extends Component {
       // GAME OVER LOGIC
       this.arena.forEach((row) => row.fill(0));
       this.player.score = 0;
-      this.player.gameStatus = 'Game Over';
+      this.props.finishGame(this.props.player);
       //this.updateGameStatus();
       //this.updateScore();
     }
@@ -287,7 +287,7 @@ class Board extends Component {
   }
 
   update = (time=0) => {
-    if (this.player.gameStatus === 'Game Over') {
+    if (this.props.gameStatus === 'Game Over') {
       return;
     }
 
@@ -312,5 +312,21 @@ class Board extends Component {
   }
 }
 
-export default Board;
+
+const mapStateToProps = (state) => {
+  return {
+    gameStatus: state.gameStatus
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  finishGame: (player) => {
+    dispatch({
+      type: 'FINISH_GAME',
+      player
+    })
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
 
