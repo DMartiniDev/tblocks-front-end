@@ -57,6 +57,24 @@ class Board extends Component {
     '#f0f000'     // O
   ];
 
+  handleKeyPress = (event) => {
+    if(event.key === 'ArrowLeft'){
+      this.playerMove(-1);
+    }
+    if(event.key === 'ArrowRight'){
+      this.playerMove(1);
+    }
+    if(event.key === 'ArrowUp'){
+      this.playerRotate(-1);
+    }
+    if(event.key === 'ArrowDown'){
+      this.playerDrop();
+    }
+    if(event.key === ' '){
+      this.playerDropToBottom();
+    }
+  }
+
   // ---------------------- Update Canvas ----------------------------------- //
 
   clearCanvas = (color = '#000') => {
@@ -159,7 +177,7 @@ class Board extends Component {
     this.merge(this.arena, this.player);
     this.playerReset();
     this.arenaSweep();
-    this.updateScore();
+    // this.updateScore();
     this.dropCounter = 0;
   }
 
@@ -302,17 +320,25 @@ class Board extends Component {
 
   // ------------------------------------------------------------------------ //
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.move === 'left') {
+      this.playerMove(-1);
+    }
+  }
+
   render() {
     return (
-      <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
+      <div style={{display:'inline'}} onKeyDown={this.handleKeyPress} tabIndex="0">
+        <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
+      </div>
     );
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
-    gameStatus: state.gameStatus
+    gameStatus: state.gameStatus,
+    move: state.move
   }
 }
 

@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
 import Board from './containers/board';
-import './socketCommunication'
+import { socketHandler } from './socketCommunication';
 import { connect } from 'react-redux';
 
 class App extends Component {
-
-  handleKeyPress = (event) => {
-    if(event.key === 'ArrowLeft'){
-      this.props.requestMoveLeft();
-    }
-    if(event.key === 'ArrowRight'){
-      this.props.requestMoveRight();
-    }
-    if(event.key === 'ArrowUp'){
-      this.props.requestRotate();
-    }
-    if(event.key === 'ArrowDown'){
-      this.props.requestMoveDown();
-    }
-    if(event.key === ' '){
-      this.props.requestDropDown();
-    }
+  constructor() {
+    super();
+    socketHandler['playersOnline']((playerCount) => {
+      this.props.updatePlayerCount(playerCount);
+    });
   }
+
 
   player01 = {
     name: 'Player 01'
@@ -45,11 +34,15 @@ class App extends Component {
   render() {
     return (
       <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-        <Board player={this.player01} />
-        <Board player={this.player02} />
-        <div>
-          <button onClick={this.props.startGame}>START GAME</button>
-        </div>
+        {/* <Board player={this.player01} />
+        <Board player={this.player02} /> */}
+        <h1 style={{color: 'white'}}>Welcome to TELTRIS</h1>
+        <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
+        <p style={{color: 'white'}}>Enter your name:</p>
+        <input placeholder="Name" />
+        <br />
+        <br />
+        <button>LOOK FOR AN OPPONENT</button>
         {this.showGameResults()}
       </div>
     );
@@ -59,7 +52,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     gameStatus: state.gameStatus,
-    loser: state.loser
+    loser: state.loser,
+    playerCount: state.playerCount
   }
 }
 
@@ -67,6 +61,13 @@ const mapDispatchToProps = (dispatch) => ({
   startGame: () => {
     dispatch({
       type: 'START_GAME'
+    })
+  },
+
+  updatePlayerCount: (playerCount) => {
+    dispatch({
+      type: 'UPDATE_PLAYER_COUNT',
+      playerCount: playerCount
     })
   },
 
