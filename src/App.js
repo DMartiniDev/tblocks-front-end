@@ -58,6 +58,8 @@ class App extends Component {
       );
     } else if (this.props.clientStatus === 'wait') {
       return (<p style={{color: 'white'}}>Waiting for opponent</p>);
+    } else if (this.props.clientStatus === 'pair') {
+      return (<p style={{color: 'white'}}>You've been paired with an opponent</p>);
     } else {
       return (<p style={{color: 'white'}}>Something unexpected happened</p>);
     }
