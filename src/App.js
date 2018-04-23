@@ -10,6 +10,11 @@ class App extends Component {
     socketHandler['playersOnline']((playerCount) => {
       this.props.updatePlayerCount(playerCount);
     });
+
+    socketHandler['updateClient']((status) => {
+      console.log('Status has been changed with:', status);
+      this.props.updateClientStatus(status);
+    })
   }
 
 
@@ -31,21 +36,35 @@ class App extends Component {
     }
   }
 
+  lookForAnOpponentClicked() {
+    socketHandler['makePlayerAvailable'](this.refs.name.value)
+  }
+
+  renderView() {
+    if (this.props.clientStatus === 'welcome') {
+      return (
+        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
+          {/* <Board player={this.player01} />
+          <Board player={this.player02} /> */}
+          <h1 style={{color: 'white'}}>Welcome to TELTRIS</h1>
+          <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
+          <p style={{color: 'white'}}>Enter your name:</p>
+          <input placeholder="Name" ref="name"/>
+          <br />
+          <br />
+          <button onClick={this.lookForAnOpponentClicked.bind(this)}>LOOK FOR AN OPPONENT</button>
+          {this.showGameResults()}
+        </div>
+      );
+    } else if (this.props.clientStatus === 'wait') {
+      return (<p style={{color: 'white'}}>Waiting for opponent</p>);
+    } else {
+      return (<p style={{color: 'white'}}>Something unexpected happened</p>);
+    }
+  }
+
   render() {
-    return (
-      <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-        {/* <Board player={this.player01} />
-        <Board player={this.player02} /> */}
-        <h1 style={{color: 'white'}}>Welcome to TELTRIS</h1>
-        <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
-        <p style={{color: 'white'}}>Enter your name:</p>
-        <input placeholder="Name" />
-        <br />
-        <br />
-        <button>LOOK FOR AN OPPONENT</button>
-        {this.showGameResults()}
-      </div>
-    );
+    return this.renderView()
   }
 }
 
@@ -53,7 +72,8 @@ const mapStateToProps = (state) => {
   return {
     gameStatus: state.gameStatus,
     loser: state.loser,
-    playerCount: state.playerCount
+    playerCount: state.playerCount,
+    clientStatus: state.clientStatus
   }
 }
 
@@ -61,6 +81,13 @@ const mapDispatchToProps = (dispatch) => ({
   startGame: () => {
     dispatch({
       type: 'START_GAME'
+    })
+  },
+
+  updateClientStatus: (status) => {
+    dispatch({
+      type: 'UPDATE_CLIENT_STATUS',
+      clientStatus: status
     })
   },
 

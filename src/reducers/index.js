@@ -3,7 +3,8 @@ const initialState = {
   loser: null,
   move: null,
   playerCount: 0,
-  availablePlayers: []
+  availablePlayers: [],
+  clientStatus: 'welcome'
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -15,6 +16,13 @@ const rootReducer = (state = initialState, action) => {
       ...state,
       playerCount: action.playerCount
     }
+
+  case 'UPDATE_CLIENT_STATUS':
+    return {
+      ...state,
+      clientStatus: action.clientStatus
+    }
+
   case 'UPDATE_PLAYER_COUNT':
     return {
       ...state,
