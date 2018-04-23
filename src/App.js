@@ -11,9 +11,9 @@ class App extends Component {
       this.props.updatePlayerCount(playerCount);
     });
 
-    socketHandler['updateClient']((status) => {
-      console.log('Status has been changed with:', status);
-      this.props.updateClientStatus(status);
+    socketHandler['updateClient']((data) => {
+      console.log('Status has been changed with:', data);
+      this.props.updateClientStatus(data);
     })
   }
 
@@ -86,10 +86,10 @@ const mapDispatchToProps = (dispatch) => ({
     })
   },
 
-  updateClientStatus: (status) => {
+  updateClientStatus: (data) => {
     dispatch({
       type: 'UPDATE_CLIENT_STATUS',
-      clientStatus: status
+      data: data
     })
   },
 
