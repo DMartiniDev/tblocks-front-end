@@ -5,8 +5,8 @@ const initialState = {
   playerCount: 0,
   availablePlayers: [],
   clientStatus: 'welcome',
-  player1: null,
-  player2: null
+  player01: null,
+  player02: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,16 +16,15 @@ const rootReducer = (state = initialState, action) => {
   case 'UPDATE_LIST_OF_PLAYERS':
     return {
       ...state,
-      playerCount: action.playerCount
+      playerCount: action.playerCount,
     }
 
   case 'UPDATE_CLIENT_STATUS':
-    console.log('Mira aqui...');
-    console.log(action);
-
     return {
       ...state,
-      clientStatus: action.data.status
+      clientStatus: action.data.status,
+      player01: action.data.player,
+      player02: action.data.opponent
     }
 
   case 'UPDATE_PLAYER_COUNT':

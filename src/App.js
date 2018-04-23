@@ -59,7 +59,7 @@ class App extends Component {
     } else if (this.props.clientStatus === 'wait') {
       return (<p style={{color: 'white'}}>Waiting for opponent</p>);
     } else if (this.props.clientStatus === 'pair') {
-      return (<p style={{color: 'white'}}>You've been paired with an opponent</p>);
+      return (<p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>);
     } else {
       return (<p style={{color: 'white'}}>Something unexpected happened</p>);
     }
@@ -75,7 +75,9 @@ const mapStateToProps = (state) => {
     gameStatus: state.gameStatus,
     loser: state.loser,
     playerCount: state.playerCount,
-    clientStatus: state.clientStatus
+    clientStatus: state.clientStatus,
+    player01: state.player01,
+    player02: state.player02
   }
 }
 
