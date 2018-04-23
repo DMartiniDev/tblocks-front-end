@@ -17,15 +17,6 @@ class App extends Component {
     })
   }
 
-
-  player01 = {
-    name: 'Player 01'
-  };
-
-  player02 = {
-    name: 'Player 02'
-  };
-
   showGameResults() {
     if (this.props.gameStatus === 'Game Over') {
       return (
@@ -59,8 +50,8 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
           <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
-          <Board player={this.player01} />
-          <Board player={this.player02} />
+          <Board player={this.props.player01} />
+          <Board player={this.props.player02} />
           {this.showGameResults()}
         </div>
       );
