@@ -44,8 +44,6 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          {/* <Board player={this.player01} />
-          <Board player={this.player02} /> */}
           <h1 style={{color: 'white'}}>Welcome to TELTRIS</h1>
           <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
           <p style={{color: 'white'}}>Enter your name:</p>
@@ -53,13 +51,19 @@ class App extends Component {
           <br />
           <br />
           <button onClick={this.lookForAnOpponentClicked.bind(this)}>LOOK FOR AN OPPONENT</button>
-          {this.showGameResults()}
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
       return (<p style={{color: 'white'}}>Waiting for opponent</p>);
     } else if (this.props.clientStatus === 'pair') {
-      return (<p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>);
+      return (
+        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
+          <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
+          <Board player={this.player01} />
+          <Board player={this.player02} />
+          {this.showGameResults()}
+        </div>
+      );
     } else {
       return (<p style={{color: 'white'}}>Something unexpected happened</p>);
     }
