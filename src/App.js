@@ -17,6 +17,24 @@ class App extends Component {
     })
   }
 
+  handleKeyPress = (event) => {
+    if(event.key === 'ArrowLeft'){
+      this.props.requestMoveLeft();
+    }
+    if(event.key === 'ArrowRight'){
+      this.props.requestMoveRight();
+    }
+    if(event.key === 'ArrowUp'){
+      this.props.requestRotate();
+    }
+    if(event.key === 'ArrowDown'){
+      this.props.requestMoveDown();
+    }
+    if(event.key === ' '){
+      this.props.requestDropDown();
+    }
+  }
+
   showGameResults() {
     if (this.props.gameStatus === 'Game Over') {
       return (
