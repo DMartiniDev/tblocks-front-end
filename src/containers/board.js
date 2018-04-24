@@ -12,6 +12,10 @@ class Board extends Component {
     this.clearCanvas('#F00');
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
   clearCanvas(color = '#000') {
     this.tetrisCanvasContext.fillStyle = color;
     this.tetrisCanvasContext.fillRect(0,0,this.tetrisCanvas.width,this.tetrisCanvas.height);
