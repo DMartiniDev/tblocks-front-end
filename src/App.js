@@ -12,9 +12,17 @@ class App extends Component {
     });
 
     socketHandler['updateClient']((data) => {
-      console.log('Status has been changed with:', data);
       this.props.updateClientStatus(data);
-    })
+    });
+
+    socketHandler['updateBoard']((data) => {
+      this.props.updateClientBoard(data);
+    });
+
+    socketHandler['finishGame']((data) => {
+      this.props.finishGame(data);
+    });
+
   }
 
   handleKeyPress = (event) => {
@@ -38,7 +46,7 @@ class App extends Component {
   showGameResults() {
     if (this.props.gameStatus === 'Game Over') {
       return (
-        <p style={{color: 'white'}}>Apparently, {this.props.loser} has lost the game</p>
+        <p style={{color: 'white'}}>{this.props.loser} has lost the game</p>
       )
     } else {
       return;
@@ -68,8 +76,8 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
           <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
-          <Board player={this.props.player01} />
-          <Board player={this.props.player02} />
+          <Board player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+          <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
           {this.showGameResults()}
         </div>
       );
@@ -90,7 +98,11 @@ const mapStateToProps = (state) => {
     playerCount: state.playerCount,
     clientStatus: state.clientStatus,
     player01: state.player01,
-    player02: state.player02
+    player02: state.player02,
+    playerBoard: state.playerBoard,
+    opponentBoard: state.opponentBoard,
+    playerPiece: state.playerPiece,
+    opponentPiece: state.opponentPiece
   }
 }
 
@@ -98,6 +110,20 @@ const mapDispatchToProps = (dispatch) => ({
   startGame: () => {
     dispatch({
       type: 'START_GAME'
+    })
+  },
+
+  finishGame: (data) => {
+    dispatch({
+      type: 'FINISH_GAME',
+      data: data
+    })
+  },
+
+  updateClientBoard: (data) => {
+    dispatch({
+      type: 'UPDATE_CLIENT_BOARD',
+      data: data
     })
   },
 

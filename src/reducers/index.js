@@ -6,7 +6,11 @@ const initialState = {
   availablePlayers: [],
   clientStatus: 'welcome',
   player01: null,
-  player02: null
+  player02: null,
+  playerBoard: null,
+  opponentBoard: null,
+  playerPiece: null,
+  opponentPiece: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +22,22 @@ const rootReducer = (state = initialState, action) => {
       ...state,
       playerCount: action.playerCount,
     }
+
+  case 'UPDATE_CLIENT_BOARD':
+  if (state.player01.id === action.data.playerID) {
+    return {
+      ...state,
+      playerBoard: action.data.board,
+      playerPiece: action.data.player
+    }
+  } else {
+    return {
+      ...state,
+      opponentBoard: action.data.board,
+      opponentPiece: action.data.player
+    }
+  }
+
 
   case 'UPDATE_CLIENT_STATUS':
     return {
@@ -61,7 +81,7 @@ const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       gameStatus: 'Game Over',
-      loser: action.player.name
+      loser: action.loser
     };
   default:
     return state;

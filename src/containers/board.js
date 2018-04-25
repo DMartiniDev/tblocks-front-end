@@ -9,10 +9,24 @@ class Board extends Component {
     this.tetrisCanvas = this.refs.tetrisCanvas;
     this.tetrisCanvasContext = this.tetrisCanvas.getContext('2d');
     this.tetrisCanvasContext.scale(20, 20);
-    this.clearCanvas('#F00');
+    this.clearCanvas('#000');
+    this.colors = [
+      null,
+      '#a000f0',    // T
+      '#f0a000',    // L
+      '#0000f0',    // J
+      '#00f000',    // S
+      '#f00000',    // Z
+      '#00f0f0',    // L
+      '#f0f000'     // O
+    ];
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    this.clearCanvas('#000');
+    this.drawMatrix(nextProps.boardStatus, {x:0,y:0});
+    this.drawMatrix(nextProps.piece.matrix, nextProps.piece.pos);
+
     return false;
   }
 
@@ -21,18 +35,12 @@ class Board extends Component {
     this.tetrisCanvasContext.fillRect(0,0,this.tetrisCanvas.width,this.tetrisCanvas.height);
   }
 
-  draw() {
-    this.clearCanvas();
-
-    this.drawMatrix(this.arena, {x:0, y:0});                // Draw board
-    this.drawMatrix(this.player.matrix, this.player.pos);   // Draw piece
-  }
-
   drawMatrix(matrix, offset) {
     matrix.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value !== 0) {
           this.tetrisCanvasContext.fillStyle = this.colors[value];
+          // this.tetrisCanvasContext.fillStyle = 'lightblue';
           this.tetrisCanvasContext.fillRect(x + offset.x,
             y + offset.y,
             1,
