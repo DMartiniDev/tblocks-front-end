@@ -8,6 +8,9 @@ const socketHandler = {
   'finishGame': cb => socket.on('finishGame', data => cb(data)),
   'makePlayerAvailable': (data) => {
     socket.emit('makePlayerAvailable', data);
+  },
+  'keyPressed': (data) => {
+    socket.emit('keyPressed', data);
   }
 }
 

@@ -1,6 +1,6 @@
 const initialState = {
   gameStatus: 'Playing',
-  loser: null,
+  message: null,
   move: null,
   playerCount: 0,
   availablePlayers: [],
@@ -78,11 +78,17 @@ const rootReducer = (state = initialState, action) => {
       move: 'drop'
     }
   case 'FINISH_GAME':
-    return {
-      ...state,
-      gameStatus: 'Game Over',
-      loser: action.loser
-    };
+    if (state.gameStatus === 'Game Over') {
+      return {
+        ...state
+      }
+    } else {
+      return {
+        ...state,
+        gameStatus: 'Game Over',
+        message: action.data
+      };
+    }
   default:
     return state;
   }

@@ -27,18 +27,23 @@ class App extends Component {
 
   handleKeyPress = (event) => {
     if(event.key === 'ArrowLeft'){
+      socketHandler['keyPressed']({"key":'left', "player": this.props.player01});
       this.props.requestMoveLeft();
     }
     if(event.key === 'ArrowRight'){
+      socketHandler['keyPressed']({"key":'right', "player": this.props.player01});
       this.props.requestMoveRight();
     }
     if(event.key === 'ArrowUp'){
+      socketHandler['keyPressed']({"key":'up', "player": this.props.player01});
       this.props.requestRotate();
     }
     if(event.key === 'ArrowDown'){
+      socketHandler['keyPressed']({"key":'down', "player": this.props.player01});
       this.props.requestMoveDown();
     }
     if(event.key === ' '){
+      socketHandler['keyPressed']({"key":'spacebar', "player": this.props.player01});
       this.props.requestDropDown();
     }
   }
@@ -46,7 +51,7 @@ class App extends Component {
   showGameResults() {
     if (this.props.gameStatus === 'Game Over') {
       return (
-        <p style={{color: 'white'}}>{this.props.loser} has lost the game</p>
+        <p style={{color: 'white'}}>{this.props.message}</p>
       )
     } else {
       return;
@@ -71,7 +76,11 @@ class App extends Component {
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
-      return (<p style={{color: 'white'}}>Waiting for opponent</p>);
+      return (
+        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
+          <p style={{color: 'white'}}>Waiting for opponent</p>
+        </div>
+      );
     } else if (this.props.clientStatus === 'pair') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
@@ -94,7 +103,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     gameStatus: state.gameStatus,
-    loser: state.loser,
+    message: state.message,
     playerCount: state.playerCount,
     clientStatus: state.clientStatus,
     player01: state.player01,
