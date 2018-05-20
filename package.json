@@ -16,6 +16,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "build-and-deploy": "npm run build && s3cmd sync build/* s3://tblocks && echo '🚀  Deployed!'"
+    "build-and-deploy": "npm run build && s3cmd --no-mime-magic sync build/* s3://tblocks && echo '🚀  Deployed!'"
   }
 }
