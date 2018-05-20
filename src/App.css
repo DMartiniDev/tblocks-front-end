@@ -11,3 +11,19 @@ h1 {
   margin: 0;
   padding-top:30px;
 }
+
+button {
+  color:black;
+  font-weight: bold;
+  background-color:rgb(231, 203, 77);
+  padding: 8px 6px;
+  width: 185px;
+  border: 0px solid black;
+}
+
+input {
+  padding: 8px 12px;
+  width: 160px;
+  border-radius: 12px;
+  outline:none;
+}
