@@ -1,6 +1,8 @@
 # TBlocks
 
-Insert Image Here
+![Welcome to TBlocks](http://tblocks.s3-website.eu-west-3.amazonaws.com/images/welcome.PNG)
+
+![Gameplay](http://tblocks.s3-website.eu-west-3.amazonaws.com/images/gameplay.PNG)
 
 > TBlocks is a multiplayer tetris-like game
 
