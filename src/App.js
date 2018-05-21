@@ -66,13 +66,12 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <h1 style={{color: 'white'}}>Welcome to TELTRIS</h1>
+          <h1 style={{color: 'white'}}>Welcome to TBlocks</h1>
           <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
-          <p style={{color: 'white'}}>Enter your name:</p>
-          <input placeholder="Name" ref="name"/>
+          <input placeholder="Enter your name" ref="name"/>
           <br />
           <br />
-          <button onClick={this.lookForAnOpponentClicked.bind(this)}>LOOK FOR AN OPPONENT</button>
+          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Look for an opponent</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
