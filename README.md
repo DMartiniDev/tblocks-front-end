@@ -38,6 +38,7 @@ the [back-end repository](https://bit.ly/2LjPctw) as well.
 Looking ahead, there are a few things that I'd like to add to the game. Here
 are some of the ideas I want to implement:
 
+* Add a score for each player
 * Add preview of the next piece
 * Increase speed of the pieces falling based on player's performance
 * Add an Attack/Perk system
@@ -58,7 +59,7 @@ are some of the ideas I want to implement:
 ## Contributing
 
 If you'd like to contribute to this project, feel free to open a new issue in
-this repository so we can get a conversation started. 👍
+this repository so we can get a conversation started.
 
 ## Authors
 
