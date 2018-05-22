@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import ReactDOM from 'react-dom';
 import Board from './containers/board';
 import { socketHandler } from './socketCommunication';
 import { connect } from 'react-redux';
@@ -23,6 +24,12 @@ class App extends Component {
       this.props.finishGame(data);
     });
 
+  }
+
+  focusDiv() {
+    console.log('Clicking on board');
+    ReactDOM.findDOMNode(this.refs.board).click();
+    ReactDOM.findDOMNode(this.refs.board).focus();
   }
 
   handleKeyPress = (event) => {
@@ -81,8 +88,12 @@ class App extends Component {
         </div>
       );
     } else if (this.props.clientStatus === 'pair') {
+      setTimeout(() => {
+        this.focusDiv();
+      },1500);
+
       return (
-        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
+        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
           <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
           <Board player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
           <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
