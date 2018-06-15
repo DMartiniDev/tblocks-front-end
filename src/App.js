@@ -89,12 +89,12 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <h1 style={{color: 'black'}}>Ин Совиет Руссиа, Тетрис плаыс ыоу</h1>
-          <p style={{color: 'white'}}>Comrades online: {this.props.playerCount}</p>
+          <h1 style={{color: 'black'}}>lets play tetris</h1>
+          <p style={{color: 'white'}}>Comrades Ready: {this.props.playerCount}</p>
           <input placeholder="Enter your name" ref="name"/>
           <br />
           <br />
-          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Look for an comrade</button>
+          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
@@ -112,7 +112,7 @@ class App extends Component {
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
           <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
           <Board ref={this.myRef} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
+          {/* <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/> */}
           {this.showGameResults()}
         </div>
       );

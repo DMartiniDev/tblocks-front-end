@@ -1,5 +1,15 @@
 
-@import url('https://fontlibrary.org/face/soviet-box-bold-v-0-6');
+
+@font-face {
+    font-family: 'motherland';
+    src: local('motherland'),
+          url('./assets/motherland.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Red October';
+    src: local('Red October'),
+          url('./assets/Red October.ttf') format('truetype');
+}
 
 .App {
   background-image: url('https://images3.alphacoders.com/218/thumb-1920-218535.jpg');
@@ -12,11 +22,12 @@
 }
 
 h1 {
-   font-family: 'SovjetBoxbold';
-   font-size: 50px;
-  color: black;
+  font-family: 'motherland';
+   font-size: 150px;
+
   margin: 0;
   padding-top:30px;
+
 }
 
 button {
@@ -24,7 +35,7 @@ button {
   font-weight: bold;
   background-color:rgb(231, 203, 77);
   padding: 8px 6px;
-  width: 185px;
+  width: 285px;
   border: 0px solid black;
 }
 
