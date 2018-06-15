@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { startGame, finishGame, updateClientBoard, updateClientStatus, updatePlayerCount, requestMoveLeft, requestMoveRight, requestMoveDown, requestDropDown, requestRotate  } from "./actions/index";
 import './App.css';
 import ReactDOM from 'react-dom';
 import Board from './containers/board';
 import { socketHandler } from './socketCommunication';
 import { connect } from 'react-redux';
+
 
 class App extends Component {
   constructor() {
@@ -23,7 +25,9 @@ class App extends Component {
     socketHandler['finishGame']((data) => {
       this.props.finishGame(data);
     });
-
+    this.myRef = React.createRef();
+    this.music = ['tetris.mp3','badger2.mp3'];
+    this.selectedmusic = 0;
   }
 
   focusDiv() {
@@ -53,6 +57,18 @@ class App extends Component {
       socketHandler['keyPressed']({"key":'spacebar', "player": this.props.player01});
       this.props.requestDropDown();
     }
+    if(event.key === 'm'){
+      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
+      aud[0].muted?aud[0].muted = false:aud[0].muted = true;
+    }
+    if(event.key === 'M'){
+      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
+      console.log(aud[0].src)
+      //aud[0].src==='http://127.0.0.1:3000/badger2.mp3'?aud[0].src='tetris.mp3':aud[0].src = 'badger2.mp3';
+      this.selectedmusic === 0 ? this.selectedmusic = 1 : this.selectedmusic = 0;
+      aud[0].src = this.music[this.selectedmusic];
+      aud[0].load();
+    }
   }
 
   showGameResults() {
@@ -73,18 +89,18 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <h1 style={{color: 'white'}}>Welcome to TBlocks</h1>
-          <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
+          <h1 style={{color: 'black'}}>lets play tetris</h1>
+          <p style={{color: 'white'}}>Comrades Ready: {this.props.playerCount}</p>
           <input placeholder="Enter your name" ref="name"/>
           <br />
           <br />
-          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Look for an opponent</button>
+          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <p style={{color: 'white'}}>Waiting for opponent</p>
+          <p style={{color: 'white'}}>Waiting for comrade</p>
         </div>
       );
     } else if (this.props.clientStatus === 'pair') {
@@ -94,9 +110,9 @@ class App extends Component {
 
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
-          <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
-          <Board player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
+          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
+          <Board ref={this.myRef} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+          {/* <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/> */}
           {this.showGameResults()}
         </div>
       );
@@ -126,69 +142,17 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startGame: () => {
-    dispatch({
-      type: 'START_GAME'
-    })
-  },
+    startGame: () => dispatch(startGame()),
+    finishGame: (data) => dispatch(finishGame(data)),
+    updateClientBoard: (data) => dispatch(updateClientBoard(data)),
+    updateClientStatus: (data) => dispatch(updateClientStatus(data)),
+    updatePlayerCount: (playerCount) => dispatch(updatePlayerCount(playerCount)),
+    requestMoveLeft: () => dispatch(requestMoveLeft()),
+    requestMoveRight: () => dispatch(requestMoveRight()),
+    requestMoveDown: () => dispatch(requestMoveDown()),
+    requestDropDown: () => dispatch(requestDropDown()),
+    requestRotate: () => dispatch(requestRotate())
 
-  finishGame: (data) => {
-    dispatch({
-      type: 'FINISH_GAME',
-      data: data
-    })
-  },
-
-  updateClientBoard: (data) => {
-    dispatch({
-      type: 'UPDATE_CLIENT_BOARD',
-      data: data
-    })
-  },
-
-  updateClientStatus: (data) => {
-    dispatch({
-      type: 'UPDATE_CLIENT_STATUS',
-      data: data
-    })
-  },
-
-  updatePlayerCount: (playerCount) => {
-    dispatch({
-      type: 'UPDATE_PLAYER_COUNT',
-      playerCount: playerCount
-    })
-  },
-
-  requestMoveLeft: () => {
-    dispatch({
-      type: 'MOVE_LEFT'
-    })
-  },
-
-  requestMoveRight: () => {
-    dispatch({
-      type: 'MOVE_RIGHT'
-    })
-  },
-
-  requestMoveDown: () => {
-    dispatch({
-      type: 'MOVE_DOWN'
-    })
-  },
-
-  requestDropDown: () => {
-    dispatch({
-      type: 'DROP_DOWN'
-    })
-  },
-
-  requestRotate: () => {
-    dispatch({
-      type: 'ROTATE'
-    })
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
