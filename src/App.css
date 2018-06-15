@@ -1,5 +1,8 @@
+
+@import url('https://fontlibrary.org/face/soviet-box-bold-v-0-6');
+
 .App {
-  /* background-image: url('https://images3.alphacoders.com/218/thumb-1920-218535.jpg'); */
+  background-image: url('https://images3.alphacoders.com/218/thumb-1920-218535.jpg');
   text-align: center;
   margin:0;
   padding:0;
@@ -9,6 +12,9 @@
 }
 
 h1 {
+   font-family: 'SovjetBoxbold';
+   font-size: 50px;
+  color: black;
   margin: 0;
   padding-top:30px;
 }
@@ -23,6 +29,7 @@ button {
 }
 
 input {
+   font-family: 'SovjetBoxbold';
   padding: 8px 12px;
   width: 160px;
   border-radius: 12px;

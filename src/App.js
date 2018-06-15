@@ -6,6 +6,7 @@ import Board from './containers/board';
 import { socketHandler } from './socketCommunication';
 import { connect } from 'react-redux';
 
+
 class App extends Component {
   constructor() {
     super();
@@ -88,18 +89,18 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <h1 style={{color: 'white'}}>Welcome to TBlocks</h1>
-          <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
+          <h1 style={{color: 'black'}}>Ин Совиет Руссиа, Тетрис плаыс ыоу</h1>
+          <p style={{color: 'white'}}>Comrades online: {this.props.playerCount}</p>
           <input placeholder="Enter your name" ref="name"/>
           <br />
           <br />
-          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Look for an opponent</button>
+          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Look for an comrade</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <p style={{color: 'white'}}>Waiting for opponent</p>
+          <p style={{color: 'white'}}>Waiting for comrade</p>
         </div>
       );
     } else if (this.props.clientStatus === 'pair') {
