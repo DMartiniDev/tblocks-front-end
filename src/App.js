@@ -110,7 +110,7 @@ class App extends Component {
 
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
-          <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
+          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
           <Board ref={this.myRef} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
           {/* <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/> */}
           {this.showGameResults()}

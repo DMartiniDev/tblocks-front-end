@@ -12,7 +12,12 @@ const initialState = {
   player02: null,
   playerBoard: null,
   opponentBoard: null,
-  playerPiece: null,
+  playerPiece: {
+    pos: {},
+    matrix: [],
+    score: 0,
+    level: 0
+  },
   opponentPiece: null
 };
 
