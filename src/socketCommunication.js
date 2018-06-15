@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const socket = io('https://tblocks-be.herokuapp.com/');
+const socket = io('http://127.0.0.1:3001/');
 
 const socketHandler = {
   'playersOnline': cb => socket.on('players online', data => cb(data)),
