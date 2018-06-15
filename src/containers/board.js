@@ -35,11 +35,19 @@ class Board extends Component {
     this.tetrisCanvasContext.fillStyle = color;
     this.tetrisCanvasContext.fillRect(0,0,this.tetrisCanvas.width,this.tetrisCanvas.height);
   }
-
+  drawBorder(xPos, yPos, width, height, thickness = 1)
+  {
+    this.tetrisCanvasContext.fillStyle='#000';
+    this.tetrisCanvasContext.fillRect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2));
+  }
   drawMatrix(matrix, offset) {
     matrix.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value !== 0) {
+          this.drawBorder(x + offset.x,
+            y + offset.y,
+            1,
+            1,0.01)
           this.tetrisCanvasContext.fillStyle = this.colors[value];
           // this.tetrisCanvasContext.fillStyle = 'lightblue';
           this.tetrisCanvasContext.fillRect(x + offset.x,
