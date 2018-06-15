@@ -3,6 +3,7 @@ import './board.css';
 import { socketHandler, socket } from '../socketCommunication';
 import canvasLogic from './canvasLogic';
 import { connect } from 'react-redux';
+import { finishGame } from '../actions/index';
 
 class Board extends Component {
   componentDidMount() {
@@ -68,12 +69,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  finishGame: (player) => {
-    dispatch({
-      type: 'FINISH_GAME',
-      player
-    })
-  }
+  finishGame: (player) => dispatch(finishGame())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);
