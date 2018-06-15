@@ -63,6 +63,9 @@ class Board extends Component {
   render() {
     return (
       <div style={{display:'inline'}}>
+        <audio className="music" ref='music' src="tetris.mp3" volume="0.1" loop="loop" autoPlay >
+          Error: your web browser does not support this audio player.
+        </audio>
         <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
       </div>
     );

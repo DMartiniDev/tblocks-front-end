@@ -24,7 +24,9 @@ class App extends Component {
     socketHandler['finishGame']((data) => {
       this.props.finishGame(data);
     });
-
+    this.myRef = React.createRef();
+    this.music = ['tetris.mp3','badger2.mp3'];
+    this.selectedmusic = 0;
   }
 
   focusDiv() {
@@ -53,6 +55,18 @@ class App extends Component {
     if(event.key === ' '){
       socketHandler['keyPressed']({"key":'spacebar', "player": this.props.player01});
       this.props.requestDropDown();
+    }
+    if(event.key === 'm'){
+      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
+      aud[0].muted?aud[0].muted = false:aud[0].muted = true;
+    }
+    if(event.key === 'M'){
+      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
+      console.log(aud[0].src)
+      //aud[0].src==='http://127.0.0.1:3000/badger2.mp3'?aud[0].src='tetris.mp3':aud[0].src = 'badger2.mp3';
+      this.selectedmusic === 0 ? this.selectedmusic = 1 : this.selectedmusic = 0;
+      aud[0].src = this.music[this.selectedmusic];
+      aud[0].load();
     }
   }
 
@@ -96,7 +110,7 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
           <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
-          <Board player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+          <Board ref={this.myRef} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
           <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
           {this.showGameResults()}
         </div>
