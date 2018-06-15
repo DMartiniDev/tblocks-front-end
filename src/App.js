@@ -6,6 +6,7 @@ import Board from './containers/board';
 import { socketHandler } from './socketCommunication';
 import { connect } from 'react-redux';
 
+
 class App extends Component {
   constructor() {
     super();
@@ -88,18 +89,18 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <h1 style={{color: 'white'}}>Welcome to TBlocks</h1>
-          <p style={{color: 'white'}}>Players online: {this.props.playerCount}</p>
+          <h1 style={{color: 'black'}}>lets play tetris</h1>
+          <p style={{color: 'white'}}>Comrades Ready: {this.props.playerCount}</p>
           <input placeholder="Enter your name" ref="name"/>
           <br />
           <br />
-          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Look for an opponent</button>
+          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <p style={{color: 'white'}}>Waiting for opponent</p>
+          <p style={{color: 'white'}}>Waiting for comrade</p>
         </div>
       );
     } else if (this.props.clientStatus === 'pair') {
@@ -111,7 +112,7 @@ class App extends Component {
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
           <p style={{color: 'white'}}>{this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
           <Board ref={this.myRef} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
+          {/* <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/> */}
           {this.showGameResults()}
         </div>
       );
