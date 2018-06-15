@@ -54,6 +54,18 @@ class App extends Component {
       socketHandler['keyPressed']({"key":'spacebar', "player": this.props.player01});
       this.props.requestDropDown();
     }
+    if(event.key === 'm'){
+      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
+      aud[0].muted?aud[0].muted = false:aud[0].muted = true;
+    }
+    if(event.key === 'M'){
+      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
+      console.log(aud[0].src)
+      //aud[0].src==='http://127.0.0.1:3000/badger2.mp3'?aud[0].src='tetris.mp3':aud[0].src = 'badger2.mp3';
+      this.selectedmusic === 0 ? this.selectedmusic = 1 : this.selectedmusic = 0;
+      aud[0].src = this.music[this.selectedmusic];
+      aud[0].load();
+    }
   }
 
   showGameResults() {
