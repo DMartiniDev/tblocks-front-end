@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { startGame, finishGame, updateClientBoard, updateClientStatus, updatePlayerCount, requestMoveLeft, requestMoveRight, requestMoveDown, requestDropDown, requestRotate  } from "./actions/index";
 import './App.css';
 import ReactDOM from 'react-dom';
 import Board from './containers/board';
@@ -126,69 +127,17 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startGame: () => {
-    dispatch({
-      type: 'START_GAME'
-    })
-  },
+    startGame: () => dispatch(startGame()),
+    finishGame: (data) => dispatch(finishGame(data)),
+    updateClientBoard: (data) => dispatch(updateClientBoard(data)),
+    updateClientStatus: (data) => dispatch(updateClientStatus(data)),
+    updatePlayerCount: (playerCount) => dispatch(updatePlayerCount(playerCount)),
+    requestMoveLeft: () => dispatch(requestMoveLeft()),
+    requestMoveRight: () => dispatch(requestMoveRight()),
+    requestMoveDown: () => dispatch(requestMoveDown()),
+    requestDropDown: () => dispatch(requestDropDown()),
+    requestRotate: () => dispatch(requestRotate())
 
-  finishGame: (data) => {
-    dispatch({
-      type: 'FINISH_GAME',
-      data: data
-    })
-  },
-
-  updateClientBoard: (data) => {
-    dispatch({
-      type: 'UPDATE_CLIENT_BOARD',
-      data: data
-    })
-  },
-
-  updateClientStatus: (data) => {
-    dispatch({
-      type: 'UPDATE_CLIENT_STATUS',
-      data: data
-    })
-  },
-
-  updatePlayerCount: (playerCount) => {
-    dispatch({
-      type: 'UPDATE_PLAYER_COUNT',
-      playerCount: playerCount
-    })
-  },
-
-  requestMoveLeft: () => {
-    dispatch({
-      type: 'MOVE_LEFT'
-    })
-  },
-
-  requestMoveRight: () => {
-    dispatch({
-      type: 'MOVE_RIGHT'
-    })
-  },
-
-  requestMoveDown: () => {
-    dispatch({
-      type: 'MOVE_DOWN'
-    })
-  },
-
-  requestDropDown: () => {
-    dispatch({
-      type: 'DROP_DOWN'
-    })
-  },
-
-  requestRotate: () => {
-    dispatch({
-      type: 'ROTATE'
-    })
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

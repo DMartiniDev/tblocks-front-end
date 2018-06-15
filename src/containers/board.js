@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 class Board extends Component {
   componentDidMount() {
+  console.log('here we go')
     this.tetrisCanvas = this.refs.tetrisCanvas;
     this.tetrisCanvasContext = this.tetrisCanvas.getContext('2d');
     this.tetrisCanvasContext.scale(20, 20);
@@ -76,4 +77,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);
-

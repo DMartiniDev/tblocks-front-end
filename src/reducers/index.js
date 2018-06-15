@@ -1,3 +1,6 @@
+import {START_GAME, FINISH_GAME, UPDATE_CLIENT_BOARD, UPDATE_CLIENT_STATUS, UPDATE_PLAYER_COUNT, MOVE_LEFT, MOVE_RIGHT, MOVE_DOWN, DROP_DOWN, ROTATE  } from "../constants/action-types";
+
+
 const initialState = {
   gameStatus: 'Playing',
   message: null,
@@ -15,7 +18,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-  case 'START_GAME':
+  case START_GAME:
     return state;
   case 'UPDATE_LIST_OF_PLAYERS':
     return {
@@ -23,7 +26,7 @@ const rootReducer = (state = initialState, action) => {
       playerCount: action.playerCount,
     }
 
-  case 'UPDATE_CLIENT_BOARD':
+  case UPDATE_CLIENT_BOARD:
   if (state.player01.id === action.data.playerID) {
     return {
       ...state,
@@ -39,7 +42,7 @@ const rootReducer = (state = initialState, action) => {
   }
 
 
-  case 'UPDATE_CLIENT_STATUS':
+  case UPDATE_CLIENT_STATUS:
     return {
       ...state,
       clientStatus: action.data.status,
@@ -47,37 +50,37 @@ const rootReducer = (state = initialState, action) => {
       player02: action.data.opponent
     }
 
-  case 'UPDATE_PLAYER_COUNT':
+  case UPDATE_PLAYER_COUNT:
     return {
       ...state,
       playerCount: action.playerCount
     }
-  case 'MOVE_LEFT':
+  case  MOVE_LEFT:
     return {
       ...state,
       move: 'left'
     }
-  case 'MOVE_RIGHT':
+  case MOVE_RIGHT:
     return {
       ...state,
       move: 'right'
     }
-  case 'ROTATE':
+  case ROTATE:
     return {
       ...state,
       move: 'rotate'
     }
-  case 'MOVE_DOWN':
+  case MOVE_DOWN:
     return {
       ...state,
       move: 'down'
     }
-  case 'DROP_DOWN':
+  case DROP_DOWN:
     return {
       ...state,
       move: 'drop'
     }
-  case 'FINISH_GAME':
+  case FINISH_GAME:
     if (state.gameStatus === 'Game Over') {
       return {
         ...state
